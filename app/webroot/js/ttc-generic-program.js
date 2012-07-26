@@ -273,6 +273,7 @@ function activeForm(){
 //            validClass: "success",
     });
     $("input[name*='date-time']").each(function (item) {
+    	if ($("[name$=interaction-id][value='']").length > 0) {
             $(this).rules("add",{
                 required:true,
                 greaterThanOrEqualTo: Date.now().toString("dd/MM/yyyy HH:mm"),
@@ -280,6 +281,7 @@ function activeForm(){
                     required: wrapErrorMessage(localized_errors.validation_required_error),
                 }
             });
+        }
     });
     $("input[name*='keyword']").each(function (item) {
                $(this).rules("add",{
