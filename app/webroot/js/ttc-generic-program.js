@@ -273,7 +273,7 @@ function activeForm(){
 //            validClass: "success",
     });
     $("input[name*='date-time']").each(function (item) {
-    	if ($("[name$=interaction-id][value='']").length > 0) {
+    	if ($(this).parent().parent().has($("input[type='hidden'][value='']")).length > 0) {
             $(this).rules("add",{
                 required:true,
                 greaterThanOrEqualTo: Date.now().toString("dd/MM/yyyy HH:mm"),
@@ -664,7 +664,7 @@ function fromBackendToFrontEnd(type, object, submitCall) {
     
     $.validator.addMethod(
         "greaterThanOrEqualTo", 
-        function(value, element, params) {    
+        function(value, element, params) { 
             if (!/Invalid|NaN/.test(Date.parse(value))) {
                 //if (Date.parse(value).compareTo(Date.now())>0)
                 if (Date.parseExact(value, "dd/MM/yyyy HH:mm").compareTo(Date.parseExact(Date.now().toString("dd/MM/yyyy HH:mm"), "dd/MM/yyyy HH:mm"))>0)
@@ -673,7 +673,7 @@ function fromBackendToFrontEnd(type, object, submitCall) {
             }
             
             return isNaN(value) && isNaN(params) 
-            || (parseFloat(value) >= parseFloat(params)); 
+            || (parseFloat(value) >= parseFloat(params));
         },
         wrapErrorMessage(localized_errors.past_date_error)
         );
