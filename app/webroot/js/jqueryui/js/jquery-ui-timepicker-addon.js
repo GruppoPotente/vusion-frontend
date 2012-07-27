@@ -160,6 +160,8 @@ $.extend(Timepicker.prototype, {
 					tp_inst._updateDateTime(dp_inst);
 				if ($.isFunction(o.onClose))
 					o.onClose.call($input[0], dateText, dp_inst, tp_inst);
+				// ttc-validate form when atetimepicker closes
+				$("#dynamic-generic-program-form").valid();
 			},
 			timepicker: tp_inst // add timepicker as a property of datepicker: $.datepicker._get(dp_inst, 'timepicker');
 		});
