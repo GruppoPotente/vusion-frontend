@@ -5,4 +5,11 @@ echo $this->Form->create('User', array('url' => array('controller' => 'users', '
 echo $this->Form->input('User.email', array('class'=>'ttc-login-input'));
 echo $this->Form->input('User.password', array('class'=>'ttc-login-input'));
 echo $this->Form->end(__('Login',true));
+//echo $this->Html->link(__('Forgot password'), array('action' => 'resetPassword')); 
 ?>
+<div class="forget-password">     
+        <?php
+        echo $this->Html->link(__('Forgot password'), 
+            array('action' => 'resetPassword')); 
+        ?>    
+    </div>

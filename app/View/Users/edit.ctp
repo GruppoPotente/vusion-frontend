@@ -6,13 +6,44 @@
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('username');
+	?>
+	<div class='input text'>
+	<?php
 		echo $this->Html->tag('label',__('Password'));
 		echo $this->Html->link(__('Change Password'), array('action' => 'changePassword', $this->Form->value('User.id')));
+	?>
+	</div>
+	<?php
 		echo $this->Form->input('email');
 		if (isset($isAdmin) && $isAdmin) {
 		    echo $this->Form->input('group_id');
 		    echo $this->Form->input('Program');
 		}
+	?>
+	<div class='input text'>
+	<?php
+	$filePath = WWW_ROOT . "files";
+        $fileName = "Secret Questions.csv";
+        $importedQuestions = fopen($filePath . DS . $fileName,"r");
+        $questions = array();
+        $count = 0;
+        $options = array();
+        while (!feof($importedQuestions)) {
+            $questions[] = fgets($importedQuestions);
+            if ($count > 0 && $questions[$count]) {
+                $questions[$count] = str_replace("\n", "", $questions[$count]);
+                $explodedLine = explode(",", $questions[$count]);
+                $options[trim($explodedLine[0])] = trim($explodedLine[0]);            
+            }
+            $count++;
+        }    
+        echo $this->Html->tag('label', __('Secret Questions'));
+        echo "<br>";
+        echo $this->Form->select('Secret Questions', $options);
+        ?>
+        </div>
+    <?php
+        echo $this->Form->input('password', array('label' => 'Secret Answer'));        
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

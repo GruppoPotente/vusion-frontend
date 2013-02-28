@@ -12,7 +12,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter();
         //For initial creation of the admin users uncomment the line below
-        $this->Auth->allow('login', 'logout');
+        $this->Auth->allow('login', 'logout', 'resetPassword');
         //$this->Auth->allow('*');
     }
 
@@ -247,6 +247,8 @@ class UsersController extends AppController
         $this->Acl->allow($group, 'controllers/Users/view');
         $this->Acl->allow($group, 'controllers/Users/changePassword');
         $this->Acl->allow($group, 'controllers/Users/edit');
+        $this->Acl->allow($group, 'controllers/Users/resetPassword');
+        $this->Acl->allow($group, 'controllers/Users/newPassword');
         
         //allow program manager to programs
         $group->id = 3;
@@ -273,6 +275,8 @@ class UsersController extends AppController
         $this->Acl->allow($group, 'controllers/Users/view');
         $this->Acl->allow($group, 'controllers/Users/changePassword');
         $this->Acl->allow($group, 'controllers/Users/edit');
+        $this->Acl->allow($group, 'controllers/Users/resetPassword');
+        $this->Acl->allow($group, 'controllers/Users/newPassword');
         
         //allow partner to 
         $group->id = 4;
@@ -298,6 +302,8 @@ class UsersController extends AppController
         $this->Acl->allow($group, 'controllers/Users/view');
         $this->Acl->allow($group, 'controllers/Users/changePassword');
         $this->Acl->allow($group, 'controllers/Users/edit');
+        $this->Acl->allow($group, 'controllers/Users/resetPassword');
+        $this->Acl->allow($group, 'controllers/Users/newPassword');
         
         //allow program messager to 
         $group->id = 5;
@@ -313,9 +319,23 @@ class UsersController extends AppController
         $this->Acl->allow($group, 'controllers/Users/view');
         $this->Acl->allow($group, 'controllers/Users/changePassword');
         $this->Acl->allow($group, 'controllers/Users/edit');
+        $this->Acl->allow($group, 'controllers/Users/resetPassword');
+        $this->Acl->allow($group, 'controllers/Users/newPassword');
         
         echo 'AllDone';
         exit;
+    }
+    
+    public function resetPassword() {             
+         $this->User->email = $email;
+        if (!$this->User->exists()) {
+            throw new NotFoundException(__('Invalid user.'));
+        }
+      /// $this->redirect(array('controller' => 'users', 'action' => 'newpassword'));
+    }
+    
+    public function newPassword($id = null) {
+        echo "test new";
     }
     
 
